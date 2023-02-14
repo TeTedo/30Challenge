@@ -20,14 +20,23 @@ function App() {
   useEffect(() => {
     (async () => {
       if (!web3) return;
-      const networkId = await web3.eth.net.getId();
-      const contractAddress = FruitShopContract.networks[networkId].address;
+      const contractAddress = FruitShopContract.CA;
       const instance = await new web3.eth.Contract(
-        FruitShopContract.abi,
+        FruitShopContract.output.abi,
         contractAddress
       );
       setDeployed(instance);
       setCA(contractAddress);
+
+      await window.ethereum
+        .request({
+          jsonrpc: "2.0",
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: "0x5" }],
+        })
+        .catch(() => {
+          alert("goerli 네트워크에서만 사용가능");
+        });
 
       web3.eth.subscribe("logs", { address: CA }).on("data", async (log) => {
         const params = [
