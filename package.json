@@ -31,8 +31,8 @@
     "eject": "react-scripts eject",
     "dev": "concurrently \"npm start\" \"nodemon server/controller/app.js\"",
     "server": "nodemon server/controller/app.js",
-    "production": "docker-compose up --build",
-    "db": "docker-compose -f docker-compose-mysql.yml up --build"
+    "production": "docker-compose up --build -d",
+    "db": "docker-compose -f docker-compose-mysql.yml up --build -d"
   },
   "proxy": "http://localhost:4000",
   "eslintConfig": {
