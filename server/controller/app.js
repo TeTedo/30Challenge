@@ -14,7 +14,7 @@ sequelize
 
 app.use("/api", txRouter);
 
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
   res.send("생일 축하");
 });
 
