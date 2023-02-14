@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 const config = require("../config");
-console.log(config.dev.password);
+
 const sequelize = new Sequelize(
   config.dev.database,
   config.dev.username,
