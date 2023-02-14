@@ -14,6 +14,10 @@ sequelize
 
 app.use("/api", txRouter);
 
+app.get("/", (req, res) => {
+  res.send("생일 축하");
+});
+
 app.listen(4000, () => {
   console.log("server start");
 });
