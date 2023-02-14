@@ -8,6 +8,7 @@ const config = {
     dialect: "mysql",
     port: 3306,
     logging: false,
+    operatorsAliases: 0,
   },
 };
 
