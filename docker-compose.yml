@@ -7,8 +7,6 @@ services:
       - "4000:4000"
     env_file:
       - ./.env
-    networks:
-      - fruitShop
   frontend:
     build:
       context: .
@@ -16,7 +14,3 @@ services:
       - "3000:3000"
     depends_on:
       - backend
-    networks:
-      - fruitShop
-networks:
-  fruitShop:
