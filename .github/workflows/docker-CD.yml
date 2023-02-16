@@ -1,0 +1,40 @@
+name: Docker Image CD
+
+on:
+  push:
+    branches:
+      - prod
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build & Push the Front Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./frontend/dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_FRONT_REPO }}
+
+      - name: Deploy Front to prod
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.FRONT_HOST }}
+          username: ${{ secrets.AWS_USERNAME }}
+          password: ${{ secrets.AWS_PASSWORD }}
+          port: 22
+          script: |
+            sudo docker rm -f $(docker ps -qa)
+            sudo docker rmi ${{ secrets.DOCKER_FRONT_REPO }}
+            sudo docker pull ${{ secrets.DOCKER_FRONT_REPO }}
+            sudo docker run --rm -d -p ${{ secrets.AWS_PORT }}:80 ${{ secrets.DOCKER_FRONT_REPO }}

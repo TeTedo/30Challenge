@@ -27,7 +27,7 @@ function App() {
       );
       setDeployed(instance);
       setCA(contractAddress);
-
+      CA = contractAddress;
       await window.ethereum
         .request({
           jsonrpc: "2.0",
