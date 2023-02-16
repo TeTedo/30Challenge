@@ -27,7 +27,6 @@ function App() {
       );
       setDeployed(instance);
       setCA(contractAddress);
-      CA = contractAddress;
       await window.ethereum
         .request({
           jsonrpc: "2.0",
@@ -38,30 +37,32 @@ function App() {
           alert("goerli 네트워크에서만 사용가능");
         });
 
-      web3.eth.subscribe("logs", { address: CA }).on("data", async (log) => {
-        const params = [
-          { type: "address", name: "from" },
-          { type: "address", name: "to" },
-          { type: "string", name: "name" },
-          { type: "uint", name: "num" },
-          { type: "uint", name: "value" },
-          { type: "uint", name: "date" },
-          { type: "string", name: "pay" },
-        ];
-        const value = await web3.eth.abi.decodeLog(params, log.data);
-        await axios.post("/api/getTransaction", {
-          from: value.from,
-          to: value.to,
-          name: value.name,
-          num: value.num,
-          value: value.value,
-          pay: value.pay,
-          date: value.date,
+      web3.eth
+        .subscribe("logs", { address: contractAddress })
+        .on("data", async (log) => {
+          const params = [
+            { type: "address", name: "from" },
+            { type: "address", name: "to" },
+            { type: "string", name: "name" },
+            { type: "uint", name: "num" },
+            { type: "uint", name: "value" },
+            { type: "uint", name: "date" },
+            { type: "string", name: "pay" },
+          ];
+          const value = await web3.eth.abi.decodeLog(params, log.data);
+          await axios.post("/api/getTransaction", {
+            from: value.from,
+            to: value.to,
+            name: value.name,
+            num: value.num,
+            value: value.value,
+            pay: value.pay,
+            date: value.date,
+          });
+          setLogs((prev) => {
+            return [...prev, value];
+          });
         });
-        setLogs((prev) => {
-          return [...prev, value];
-        });
-      });
     })();
   }, [web3]);
   useEffect(() => {
@@ -84,7 +85,7 @@ function App() {
               <Route path="/buy" element={<Buy />}></Route>
               <Route path="/sell" element={<Sell />}></Route>
               <Route path="/shop" element={<Shop />}></Route>
-              {/* <Route path="/transaction" element={<Transaction />}></Route> */}
+              <Route path="/transaction" element={<Transaction />}></Route>
             </Routes>
           </div>
         </div>
