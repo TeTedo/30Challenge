@@ -37,4 +37,10 @@ jobs:
             sudo docker rm -f $(docker ps -qa)
             sudo docker rmi ${{ secrets.DOCKER_FRONT_REPO }}
             sudo docker pull ${{ secrets.DOCKER_FRONT_REPO }}
-            sudo docker run --rm -d -p ${{ secrets.AWS_PORT }}:80 ${{ secrets.DOCKER_FRONT_REPO }}
+            sudo docker run --rm -d -p ${{ secrets.AWS_PORT }}:${{ secrets.AWS_PORT }} ${{ secrets.DOCKER_FRONT_REPO }}
+            cd ethFruitShop-dApp/
+            npx pm2 kill
+            git pull
+            npm i
+            npx pm2 start server/controller/app.js
+            npm run db
