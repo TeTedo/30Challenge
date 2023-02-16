@@ -2,7 +2,7 @@ const dot = require("dotenv").config();
 const config = {
   dev: {
     username: "ethFruitShop",
-    password: process.env.DB_PASSWORD,
+    password: "ethFruitShop",
     database: "ethFruitShop",
     host: "localhost",
     dialect: "mysql",
