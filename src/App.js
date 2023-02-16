@@ -84,7 +84,7 @@ function App() {
               <Route path="/buy" element={<Buy />}></Route>
               <Route path="/sell" element={<Sell />}></Route>
               <Route path="/shop" element={<Shop />}></Route>
-              <Route path="/transaction" element={<Transaction />}></Route>
+              {/* <Route path="/transaction" element={<Transaction />}></Route> */}
             </Routes>
           </div>
         </div>
