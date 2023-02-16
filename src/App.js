@@ -65,12 +65,12 @@ function App() {
       //   });
     })();
   }, [web3]);
-  useEffect(() => {
-    (async () => {
-      const data = await axios.get("/api/getTransaction");
-      setLogs([...data.data]);
-    })();
-  }, []);
+  // useEffect(() => {
+  //   // (async () => {
+  //   //   const data = await axios.get("/api/getTransaction");
+  //   //   setLogs([...data.data]);
+  //   // })();
+  // }, []);
   return (
     <div className="App">
       <DeployedContext.Provider value={{ deployed, web3, account, CA, logs }}>
