@@ -1,6 +1,6 @@
 # <div align="center">**과일 가게**</div>
 
-# [과일가게 놀러가기](http://ec2-43-201-64-87.ap-northeast-2.compute.amazonaws.com/)
+# [과일가게 놀러가기](http://ec2-3-38-182-62.ap-northeast-2.compute.amazonaws.com)
 
 ### 기간 : 2022.12.01 ~ 2022.12.09
 
